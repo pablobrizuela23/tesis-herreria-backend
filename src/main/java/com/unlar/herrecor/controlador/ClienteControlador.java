@@ -2,10 +2,12 @@ package com.unlar.herrecor.controlador;
 
 import com.unlar.herrecor.excepcion.RecursoNoEncontradoExcepcion;
 import com.unlar.herrecor.modelo.Cliente;
+import com.unlar.herrecor.modelo.Proveedor;
 import com.unlar.herrecor.servicio.ClienteServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,5 +66,19 @@ public class ClienteControlador {
             clienteServicio.guardarCliente(cliente);
             return ResponseEntity.ok(cliente);
         }
+    }
+
+    @DeleteMapping("/clientes/{id}")
+    public ResponseEntity<String> eliminarCliente(@PathVariable Integer id){
+        Cliente cliente = clienteServicio.buscarClientePorId(id);
+
+        if (cliente==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Cliente no encontrado con ID: " + id);
+
+        }
+        clienteServicio.eliminarCliente(cliente);
+        return ResponseEntity.ok("Cliente eliminado correctamente");
+
     }
 }
