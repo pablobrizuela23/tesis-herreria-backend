@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 //http://localhost:8080/herrecor-app/
 @RequestMapping("herrecor-app")
-@CrossOrigin(value = "http://localhost:3000")
+@CrossOrigin(value = "http://localhost:3000 , https://pablobrizuela23.github.io/tesis-herreria")
 public class UsuarioControlador {
     private static final Logger logger=
             LoggerFactory.getLogger(UsuarioControlador.class);
