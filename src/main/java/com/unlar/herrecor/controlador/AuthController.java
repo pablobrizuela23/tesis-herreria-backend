@@ -10,7 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("herrecor-app/api/auth")
+
 @CrossOrigin(origins = "*") // Permite CORS para tu frontend
 public class AuthController {
     private final AuthService authService;
