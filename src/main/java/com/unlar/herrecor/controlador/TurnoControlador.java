@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 //http://localhost:8080/herrecor-app/
@@ -40,6 +41,27 @@ public class TurnoControlador {
     public Turno agregarTurno(@RequestBody Turno turno){
         logger.info("Turno a agregar: " + turno);
         return turnoServicio.guardarTurno(turno);
+    }
+
+    // Traer solo turnos no vistos
+    @GetMapping("/turnos/nuevos")
+    public List<Turno> turnosNuevos() {
+        return turnoServicio.listarTurnos().stream()
+                .filter(t -> !t.isVisto())
+                .collect(Collectors.toList());
+    }
+
+    // Marcar un turno como visto
+    @PutMapping("/turno/{id}/visto")
+    public ResponseEntity<Turno> marcarVisto(@PathVariable Integer id){
+        Turno t = turnoServicio.buscarTurnoPorId(id);
+        if(t != null){
+            t.setVisto(true);
+            turnoServicio.guardarTurno(t);
+            return ResponseEntity.ok(t);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/turno/{id}")

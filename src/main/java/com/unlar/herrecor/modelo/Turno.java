@@ -24,6 +24,15 @@ public class Turno {
     private String telefono;
     private String descripcion;
     private LocalDateTime fecha;
+    private boolean visto = false;
+
+    public boolean isVisto() {
+        return visto;
+    }
+
+    public void setVisto(boolean visto) {
+        this.visto = visto;
+    }
 
     public Integer getId() {
         return id;
